@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Русские пароли</string>
+    <string name="help_text">Введите пароль в русской раскладке</string>
+
+    <string name="clipboard_title">Пароль</string>
+    <string name="message_copied">Скопировано в буфер обмена</string>
+
+    <string name="dict_rus">йцукенгшщзхъфывапролджэячсмитьбю</string>
+    <string name="dict_eng">qwertyuiop\[\]asdfghjkl;\'zxcvbnm&#x003C;&#x003E;</string>
+    <string name="dict_num">0123456789</string>
+
+    <!-- Список специальных символов: !"#$%&'()*+,-./:;<=>?@[\]^_ -->
+    <string name="dict_spec">&#x0021;&#x0022;&#x0023;&#x0024;&#x0025;&#x0026;&#x0027;&#x0028;&#x0029;&#x002A;&#x002B;&#x002C;&#x002D;&#x002E;&#x002F;&#x003A;&#x003B;&#x003C;&#x003D;&#x003D;&#x003E;&#x003F;&#x0040;&#x005B;&#x005C;&#x005D;&#x005E;&#x005F;&#x007B;&#x007C;&#x007D;&#x007E;</string>
+
+
+    <string-array name="russian">
+        <item>й</item>
+        <item>ц</item>
+        <item>у</item>
+        <item>к</item>
+        <item>е</item>
+        <item>н</item>
+
+    </string-array>
+
+    <string-array name="english">
+        <item>q</item>
+        <item>w</item>
+        <item>e</item>
+        <item>r</item>
+        <item>t</item>
+        <item>y</item>
+
+    </string-array>
+
+    <plurals name="simvols">
+        <item quantity="one">%1$d символ</item>
+        <item quantity="few">%1$d символа</item>
+        <item quantity="many">%1$d символов</item>
+        <item quantity="other">%1$d попугаев</item>
+    </plurals>
+
+</resources>
