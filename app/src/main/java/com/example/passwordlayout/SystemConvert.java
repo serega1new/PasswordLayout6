@@ -36,10 +36,7 @@ public class SystemConvert {
         return result.toString();
     }
 
-    int getValueSafety(CharSequence source)
-    {
-        return (source.length()<=10 ? source.length() : 10);
-    }
+
 
 
 

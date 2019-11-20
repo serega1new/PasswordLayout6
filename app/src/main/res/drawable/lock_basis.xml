@@ -4,20 +4,17 @@
 
 
     <size
-        android:width="300dp"
-        android:height="50dp" />
+        android:width="@dimen/lock_basis_size_width"
+        android:height="@dimen/lock_basis_size_height" />
 
     <corners
-        android:bottomLeftRadius="16dp"
-        android:bottomRightRadius="16dp"
-        android:topLeftRadius="16dp"
-        android:topRightRadius="16dp"/>
+        android:radius="@dimen/lock_basis_corners_radius"/>
 
     <stroke
-        android:width="4dp"
+        android:width="@dimen/lock_basis_stroke_width"
         android:color="@android:color/darker_gray"
-        android:dashWidth="4dp"
-        android:dashGap="4dp" />
+        android:dashWidth="@dimen/lock_basis_stroke_dashWidth"
+        android:dashGap="@dimen/lock_basis_stroke_dashGap" />
 
 
 </shape>

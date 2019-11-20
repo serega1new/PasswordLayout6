@@ -21,19 +21,21 @@ public class MainActivity extends Activity {
     private SystemConvert mSystemConvert;
     private SystemPassword mSystemPassword;
 
-    private TextView mResultTextView;
-    private TextView mSymbolsTextView;
+    private TextView mTextViewResult;
+    private TextView mTextViewSymbols;
+    private TextView mTextViewSafety;
 
-    private EditText mSourceTextView;
+    private EditText mTextEditSource;
+    private EditText mTextEditPasswordLength;
 
-    private View mCopyButton;
-    private ImageView mImageLock;
+    private View mButtonCopy;
+    private ImageView mImageViewLock;
 
-    private Button mTest;
+    private Button mButtonGeneratePassword;
 
-    private CheckBox mUppercaseCheckBox;
-    private CheckBox mNumberCheckBox;
-    private CheckBox mSpecialCheckBox;
+    private CheckBox mCheckBoxUppercase;
+    private CheckBox mCheckBoxNumber;
+    private CheckBox mCheckBoxSpecial;
 
 
     @Override
@@ -43,7 +45,7 @@ public class MainActivity extends Activity {
 
         mSystemConvert = new SystemConvert(
           getResources().getString(R.string.dict_rus),
-          getResources().getString(R.string.dict_eng)
+          getResources().getString(R.string.dict_eng_spec)
         );
 
         mSystemPassword = new SystemPassword(
@@ -52,36 +54,39 @@ public class MainActivity extends Activity {
                 getResources().getString(R.string.dict_spec)
         );
 
-        mResultTextView = findViewById(R.id.result_text);
-        mSymbolsTextView = findViewById(R.id.simvols);
+        mTextViewResult = findViewById(R.id.textView_result);
+        mTextViewSymbols = findViewById(R.id.textView_symbols);
+        mTextViewSafety = findViewById(R.id.textView_textSafetyPassword);
 
-        mSourceTextView = findViewById(R.id.source_text);
+        mTextEditSource = findViewById(R.id.textView_source);
+        mTextEditPasswordLength = findViewById(R.id.editText_passwordLength);
 
-        mImageLock = findViewById(R.id.box_lock);
+        mImageViewLock = findViewById(R.id.ImageView_lock);
 
-        mTest = findViewById(R.id.test);
-        mCopyButton = findViewById(R.id.button_copy);
-        mCopyButton.setEnabled(false);
+        mButtonGeneratePassword = findViewById(R.id.button_generatePassword);
+        mButtonCopy = findViewById(R.id.imageButton_copy);
+        mButtonCopy.setEnabled(false);
 
-        mUppercaseCheckBox = findViewById(R.id.isUppercase);
-        mNumberCheckBox = findViewById(R.id.isNumber);
-        mSpecialCheckBox = findViewById(R.id.isSpecial);
+        mCheckBoxUppercase = findViewById(R.id.checkBox_isUppercase);
+        mCheckBoxNumber = findViewById(R.id.checkBox_isNumber);
+        mCheckBoxSpecial = findViewById(R.id.checkBox_isSpecial);
 
 
-        mCopyButton.setOnClickListener(new View.OnClickListener() {
+        mButtonCopy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ClipboardManager manager = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
                 manager.setPrimaryClip(ClipData.newPlainText(
-                        MainActivity.this.getString(R.string.clipboard_title),
-                        mResultTextView.getText()
+                        MainActivity.this.getString(R.string.MainActivity_clipboard_manager_title),
+                        mTextViewResult.getText()
                 ));
-                Toast.makeText(MainActivity.this, R.string.message_copied, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.MainActivity_mButtonCopy_toast_text_message_copied, Toast.LENGTH_SHORT).show();
             }
         }
         );
 
-        mSourceTextView.addTextChangedListener(new TextWatcher() {
+        mTextEditSource.addTextChangedListener(new TextWatcher() {
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -90,10 +95,11 @@ public class MainActivity extends Activity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                mResultTextView.setText(mSystemConvert.convert(s));
-                mSymbolsTextView.setText(getResources().getQuantityString(R.plurals.simvols, mResultTextView.getText().length(), mResultTextView.getText().length() ));
-                mImageLock.setImageLevel(mSystemConvert.getValueSafety(mResultTextView.getText())*1000);
-                mCopyButton.setEnabled(s.length() > 0);
+                mTextViewResult.setText(mSystemConvert.convert(s));
+                mTextViewSymbols.setText(getResources().getQuantityString(R.plurals.plurals_symbols, mTextViewResult.getText().length(), mTextViewResult.getText().length() ));
+                mImageViewLock.setImageLevel(mSystemPassword.getValueSafety(mTextViewResult.getText())*1000);
+                mTextViewSafety.setText(getResources().getStringArray(R.array.textSafetyPassword)[mSystemPassword.getValueSafety(s)]);
+                mButtonCopy.setEnabled(s.length() > 0);
 
             }
 
@@ -103,14 +109,17 @@ public class MainActivity extends Activity {
             }
         });
 
-        mTest.setOnClickListener(new View.OnClickListener() {
+        mButtonGeneratePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSystemPassword.setUppercase(mUppercaseCheckBox.isChecked());
-                mSystemPassword.setNumbers(mNumberCheckBox.isChecked());
-                mSystemPassword.setSpecial(mSpecialCheckBox.isChecked());
-                mResultTextView.setText(mSystemPassword.getGeneratePassword());
 
+                mSystemPassword.setUppercase(mCheckBoxUppercase.isChecked());
+                mSystemPassword.setNumbers(mCheckBoxNumber.isChecked());
+                mSystemPassword.setSpecial(mCheckBoxSpecial.isChecked());
+                mTextViewResult.setText(mSystemPassword.getGeneratePassword(Byte.valueOf(mTextEditPasswordLength.getText().toString())));
+                mTextViewSafety.setText(getResources().getStringArray(R.array.textSafetyPassword)[mSystemPassword.getValueSafety(mTextViewSafety.getText())]);
+                mTextViewSymbols.setText(getResources().getQuantityString(R.plurals.plurals_symbols, mTextViewResult.getText().length(), mTextViewResult.getText().length() ));
+                mImageViewLock.setImageLevel(mSystemPassword.getValueSafety(mTextViewResult.getText())*1000);
 
             }
         });

@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <corners
-        android:bottomLeftRadius="16dp"
-        android:bottomRightRadius="16dp"
-        android:topLeftRadius="16dp"
-        android:topRightRadius="16dp"/>
+        android:radius="@dimen/text_box_corners_radius"/>
 
     <stroke
-        android:width="4dp"
+        android:width="@dimen/text_box_stroke_width"
         android:color="@android:color/darker_gray"
-        android:dashWidth="4dp"
-        android:dashGap="4dp" />
+        android:dashWidth="@dimen/text_box_stroke_dashWidth"
+        android:dashGap="@dimen/text_box_stroke_dashGap" />
 
 </shape>
